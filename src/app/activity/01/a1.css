@@ -1,0 +1,17 @@
+.a1-nav {
+    position: absolute;
+    top: 1.3em;
+    right: 1.3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row;
+    gap: 1em;
+}
+
+.a1-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}

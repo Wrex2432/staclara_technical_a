@@ -1,0 +1,30 @@
+.index{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+}
+
+.dashboard-nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    
+}
+.global-nav {
+    position: absolute;
+    top: 1.3em;
+    right: 1.3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row;
+    gap: 1em;
+}
+
+.button-main span{
+    position: absolute;
+    top: 0;
+    right: 0.3em;
+}
