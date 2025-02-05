@@ -57,36 +57,84 @@ body {
 i{
   font-size: 2.5rem;
 }
-.button-main {
+.button-main, .button-red, .button-green {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   font: inherit;
-  background-color: rgba(255, 255, 255, 0.9);
-  color: #000;
+
   border-radius: 0.5em;
   /* font-size: 1.35rem; */
   padding: 0.6em;
   font-weight: 600;
+
+  transition: 
+    translate 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.button-main:active, .button-red:active, .button-green:active {
+  outline: none;
+  translate: 0 0.225em;
+
+}
+
+.button-main {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #000;
   text-shadow: 0 0.0625em 0 #fff;
   box-shadow: 
     inset 0 0.0625em 0 0 rgba(236, 236, 236, 0.4), 0 0.0625em 0 0 rgba(231, 231, 231, 0.4),
     0 0.125em 0 0 rgba(236, 236, 236, 0.4), 0 0.25em 0 0 rgba(224, 224, 224, 0.4), 0 0.3125em 0 0 rgba(222, 222, 222, 0.4),
     0 0.375em 0 0 rgba(220, 220, 220, 0.4), 0 0.425em 0 0 rgba(202, 202, 202, 0.4), 0 0.425em 0.5em 0 rgba(206, 206, 206, 0.4);
   
-  transition: 
-    translate 0.15s ease-in-out,
-    box-shadow 0.15s ease-in-out,
-  ;
-  cursor: pointer;
 }
 .button-main:active {
-  outline: none;
-  translate: 0 0.225em;
   box-shadow: 
     inset 0 0.03em 0 0 rgba(236, 236, 236, 0.4), 0 0.03em 0 0 rgba(231, 231, 231, 0.4),
     0 0.0625em 0 0 rgba(236, 236, 236, 0.1), 0 0.125em 0 0 rgba(224, 224, 224, 0.1), 0 0.125em 0 0 rgba(222, 222, 222, 0.1),
     0 0.2em 0 0 rgba(220, 220, 220, 0.1), 0 0.225em 0 0 rgba(202, 202, 202, 0.1), 0 0.225em 0.375em 0 rgba(206, 206, 206, 0.1);
 }
+
+.button-red {
+  background-color: rgba(227, 38, 54, 0.9); /* #E32636 red background */
+  color: #fff; /* White text for contrast */
+
+  text-shadow: 0 0.0625em 0 #fff;
+  box-shadow: 
+    inset 0 0.0625em 0 0 rgba(227, 38, 54, 0.4), 0 0.0625em 0 0 rgba(200, 40, 60, 0.4),
+    0 0.125em 0 0 rgba(215, 50, 70, 0.4), 0 0.25em 0 0 rgba(180, 30, 50, 0.4), 0 0.3125em 0 0 rgba(170, 25, 45, 0.4),
+    0 0.375em 0 0 rgba(160, 20, 40, 0.4), 0 0.425em 0 0 rgba(140, 15, 35, 0.4), 0 0.425em 0.5em 0 rgba(150, 20, 40, 0.4);
+}
+
+.button-red:active {
+  box-shadow: 
+    inset 0 0.03em 0 0 rgba(215, 50, 70, 0.4), 0 0.03em 0 0 rgba(200, 40, 60, 0.4),
+    0 0.0625em 0 0 rgba(215, 50, 70, 0.1), 0 0.125em 0 0 rgba(180, 30, 50, 0.1), 0 0.125em 0 0 rgba(170, 25, 45, 0.1),
+    0 0.2em 0 0 rgba(160, 20, 40, 0.1), 0 0.225em 0 0 rgba(140, 15, 35, 0.1), 0 0.225em 0.375em 0 rgba(150, 20, 40, 0.1);
+}
+
+
+.button-green {
+  background-color: rgba(144, 238, 144, 0.9); /* #90EE90 pastel green background */
+  color: #fff; /* Black text for contrast */
+
+  text-shadow: 0 0.0625em 1em #929292;
+  box-shadow: 
+    inset 0 0.0625em 0 0 rgba(144, 238, 144, 0.4), 0 0.0625em 0 0 rgba(130, 220, 130, 0.4),
+    0 0.125em 0 0 rgba(150, 230, 150, 0.4), 0 0.25em 0 0 rgba(120, 210, 120, 0.4), 0 0.3125em 0 0 rgba(110, 200, 110, 0.4),
+    0 0.375em 0 0 rgba(100, 190, 100, 0.4), 0 0.425em 0 0 rgba(90, 180, 90, 0.4), 0 0.425em 0.5em 0 rgba(95, 185, 95, 0.4);
+}
+
+.button-green:active {
+  box-shadow: 
+    inset 0 0.03em 0 0 hsla(120, 62%, 75%, 0.4), 0 0.03em 0 0 rgba(130, 220, 130, 0.4),
+    0 0.0625em 0 0 rgba(150, 230, 150, 0.1), 0 0.125em 0 0 rgba(120, 210, 120, 0.1), 0 0.125em 0 0 rgba(110, 200, 110, 0.1),
+    0 0.2em 0 0 rgba(100, 190, 100, 0.1), 0 0.225em 0 0 rgba(90, 180, 90, 0.1), 0 0.225em 0.375em 0 rgba(95, 185, 95, 0.1);
+}
+
+
+
 

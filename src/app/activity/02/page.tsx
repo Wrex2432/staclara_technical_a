@@ -10,13 +10,13 @@ export default async function Activity2() {
     return (
         <main className="box a2-main">
             <section className="a2-nav">
-                <Button targetFunction={"logOut"}>
+                <Button className="button-main" targetFunction={"logOut"}>
                     <i className='bx bx-log-out'></i>
                 </Button>
-                <Button targetFunction={"deleteUser"}>
+                <Button className="button-main" targetFunction={"deleteUser"}>
                     <i className='bx bxs-user-x' ></i>
                 </Button>
-                <Button targetFunction={"GotoGithub"}>
+                <Button className="button-main" targetFunction={"GotoGithub"}>
                     <i className='bx bxl-github' ></i>
                 </Button>
                 <Link href="/">

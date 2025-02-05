@@ -38,3 +38,21 @@ textarea {
     justify-content: center;
     flex-flow: row;
 }
+
+.user-dashboard{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+}
+
+.user-card {
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+
+
+}
+

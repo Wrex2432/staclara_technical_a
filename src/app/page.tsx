@@ -18,14 +18,14 @@ export default async function Home() {
   return (
     <main className="box index">
       <section className="global-nav">
-        <Button targetFunction={logOut}>
+        <Button className="button-main" targetFunction={logOut}>
           <i className='bx bx-log-out'></i>
         </Button>
-        <Button targetFunction={"deleteUser"}>
+        <Button className="button-main" targetFunction={deleteUser}>
           <i className='bx bxs-user-x' ></i>
         </Button>
       </section>
-      <h1 className="capitalize">Hello {data?.user.email?.split('@')[0]}</h1>
+      <p className="capitalize text-5xl font-bold">Hello {data?.user.email?.split('@')[0]}</p>
  
 
       <section className="dashboard-nav">

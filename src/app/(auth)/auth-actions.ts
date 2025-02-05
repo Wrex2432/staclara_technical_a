@@ -3,6 +3,8 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createServer, createServerAdmin } from '@/utils/supabase/server'
 import { createClient } from '@/utils/supabase/client'
+
+
 export async function login(formData: FormData) {
   const supabase = await createClient();
   const supabaseSR = await createServer();
@@ -17,14 +19,14 @@ export async function login(formData: FormData) {
   const { error } = await supabaseSR.auth.signInWithPassword(data)
 
   const { data: { user } } = await supabaseSR.auth.getUser()
-  const getUserMsg = async () => {
+  const setUserMsg = async () => {
       const { data, error } = await supabase.from('st_profile').select("secret_msg").eq("user_id", user?.id);
       if (!data?.length) {
-          const { data, error } = await supabase.from('st_profile').insert({user_id:user?.id,secret_msg: "Secret Message, edit on A2 page."});
+          const { data, error } = await supabase.from('st_profile').insert({user_id:user?.id,user_email:user?.email});
           return;
       }
   }
-  await getUserMsg();
+  await setUserMsg();
       
 
   if (error) {
