@@ -7,7 +7,8 @@ export default function ViewSecret() {
     const [message, setMessage] = useState('')
     const pathName = usePathname();
     const userId = pathName.split("/")[4];
-    const userStatus = pathName.split("--")[1];
+    const userName = pathName.split("--")[1];
+    const userStatus = pathName.split("--")[2];
     if (userStatus != "accepted") {
         unauthorized();
     }
@@ -20,8 +21,11 @@ export default function ViewSecret() {
         handleGetMsg();
     },[])
     return (
-        <div>
-            {message}
-        </div>
+        <>
+        <section className="secret-view">
+            <h1>This is <span className="capitalize font-bold">{userName}</span>'s secret message</h1>
+            <p className="container-msg">{message}</p>
+        </section>
+        </>
     )
 }

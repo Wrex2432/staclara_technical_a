@@ -1,31 +1,65 @@
-.index{
+.index, .confirm-delete{
     display: flex;
     align-items: center;
     justify-content: center;
     flex-flow: column;
+}
+.index h1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 1em;
+    margin-top: 1em;
+    border-bottom: 2px solid #fff;
 }
 
 .dashboard-nav{
+    width: 640px;
+}
+.dashboard-nav ul{
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-flow: column;
-    
+    flex-flow: column nowrap;
+    gap: 2em;
+    width: 100%;
 }
-.global-nav {
-    position: absolute;
+.dashboard-nav ul li{
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    grid-column-gap: 2em;
+    grid-row-gap: 0px;
+    align-items: center;
+    width: 100%;
+}
+.dashboard-nav p {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.global-nav-items{
+    position: fixed;
     top: 1.3em;
     right: 1.3em;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-flow: row;
     gap: 1em;
+    flex-flow: row;
 }
 
 .button-main span{
     position: absolute;
     top: 0;
-    right: 0.3em;
+    right: 0.2em;
 }
-
+.nav-return{
+    position: absolute;
+    top: 1.3em;
+    left: 1.3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row;
+}

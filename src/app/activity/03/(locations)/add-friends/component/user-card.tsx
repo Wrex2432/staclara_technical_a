@@ -1,10 +1,10 @@
 "use client"
-import { checkRequestStatus, sendFriendRequest } from "@/app/activity/activity-actions"
-import Button from "@/app/components/button"
-import { useEffect, useState } from "react"
+import { checkRequestStatus, sendFriendRequest } from "@/app/activity/activity-actions";
+import Button from "@/app/components/button";
+import { useEffect, useState } from "react";
 
 
-export default function UserCard({email, userTarget_id}: {email:string, userTarget_id:string}) {
+export default function UserCard({name, userTarget_id}: {name:string, userTarget_id:string}) {
     const [status, setStatus] = useState('');
 
     useEffect(()=> {
@@ -15,7 +15,6 @@ export default function UserCard({email, userTarget_id}: {email:string, userTarg
         getStatus();
         
     },[])
-    // console.log(status);
 
     const handleSubmit = (e:any) => {
         e.preventDefault();
@@ -23,21 +22,29 @@ export default function UserCard({email, userTarget_id}: {email:string, userTarg
     }
 
     return (
-        <div className="user-card">
-            <img src="https://picsum.photos/200" alt="" />
-            <p>{email}</p>
+        <div className="user-card background-static">
+            <figure>
+                <img className="background-static" src="https://picsum.photos/200" alt="placeholder_profile" />
+            </figure>
+            <div className="user-card-actions">
+            <p>{name}</p>
             {
-            status === "pending" ? 
-                <div>
+                status === "pending" ? 
                     <button className="button-main" disabled>{status}</button> 
-                    <button className="button-red" disabled>cancel</button> 
-                </div>
-            : 
-            status === "accepted" ?
-                <button className="button-green" disabled>{status}</button> 
-            : 
-                <Button className="button-main" targetFunction={handleSubmit}><i className='bx bx-plus' ></i></Button>
+                : 
+                status === "accepted" ?
+                    <button className="button-green" disabled>{status}</button> 
+                : 
+                    <Button className="button-main" targetFunction={handleSubmit}><i className='bx bx-plus' ></i></Button>
             }
+            </div>
         </div>
     )
 }
+
+/* 
+<div>
+                    <button className="button-main" disabled>{status}</button> 
+                    <button className="button-red" disabled>cancel</button> 
+                </div>
+*/

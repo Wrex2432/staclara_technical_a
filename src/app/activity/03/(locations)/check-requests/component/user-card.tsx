@@ -14,12 +14,18 @@ export default function UserCard({email, userTarget_id}: {email:string, userTarg
     }
 
     return (
-        <div className="user-card">
-            <img src="https://picsum.photos/200" alt="" />
-            <p>{email}</p>
-            {/* <p>{userTarget_id}</p> */}
-            <Button className="button-green" targetFunction={handleConfirm}><i className='bx bx-check'></i></Button>
-            <Button className="button-red" targetFunction={handleDeny}><i className='bx bx-x' ></i></Button>
+        <div className="user-card background-static">
+            <figure>
+                <img className="background-static" src="https://picsum.photos/200" alt="placeholder_profile" />
+            </figure>
+            <div className="user-card-actions">
+                <p>{email}</p>
+                <div className="user-card-buttons">
+                    <Button className="button-green" targetFunction={handleConfirm}><i className='bx bx-check'></i></Button>
+                    <Button className="button-red" targetFunction={handleDeny}><i className='bx bx-x' ></i></Button>
+                </div>
+            </div>
         </div>
+
     )
 }

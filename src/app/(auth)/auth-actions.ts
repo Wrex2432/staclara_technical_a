@@ -74,3 +74,4 @@ export const deleteUser = async () => {
   
   return redirect("/login");
 };
+

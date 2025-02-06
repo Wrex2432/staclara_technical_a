@@ -1,58 +1,105 @@
-.a3-nav {
-    position: absolute;
-    top: 1.3em;
-    right: 1.3em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-flow: row;
-    gap: 1em;
+h2{
+    position: fixed;
+    font-size: 2rem;
+    top: 2rem;
+    border-bottom: 2px solid #fff;
+    font-family:'Courier New', Courier, monospace;
 }
-
-.a3-main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-}
-
-textarea {
-    width: 100%;
-    height: 150px;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    font-size: 16px;
-    resize: none;
-    color: #000;
-  }
-
-.nav-03{
-    position: absolute;
-    top: 1.3em;
-    left: 1.3em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-flow: row;
-}
-
-.user-dashboard{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5em;
-}
-
-.user-card {
-    
+form{
     display: flex;
     align-items: center;
     justify-content: center;
     flex-flow: column;
+    gap: 1em;
+}
 
+textarea {
+    width: 500px;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+
+    font-size: 1rem;
+    resize: none;
+    color: #000;
+}
+.user-dashboard{
+    /* border: 2px solid peachpuff;  */
+    width: 80%;
+    height: 74%;
+    /* display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em; */
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 120px;
+    grid-column-gap: 0px;
+    grid-row-gap: 1em;
+    overflow-y: auto;
+}
+
+.user-card {   
+    /* border: 2px solid lime;  */
+    display: grid;
+    align-items: center;
+    grid-template-columns: 100px 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
 
 }
 
+.user-card figure {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.user-card figure img {
+    width: 60px;
+}
+.user-card-actions, .user-card-actions a {
+    /* border: 2px solid red; */
+    padding: 0.5em 1em;
+    display: flex;
+    flex-flow: column;
+}
+.user-card-buttons{
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 1em;
+}
+
+.background-static {
+
+    border: 1px solid #d1d1d1; /* Lighter border color */
+    border-radius: 15px;
+    transform: translateY(0px);
+    box-shadow:
+        inset 0 30px 30px -15px rgba(255, 255, 255, 0.2), /* Lighter inset shadow */
+        inset 0 0 0 1px rgba(255, 255, 255, 0.4), /* Lighter inner border */
+        inset 0 1px 20px rgba(255, 255, 255, 0.1), /* Lighter inner shadow */
+        0 3px 0 #d1d1d1, /* Lighter border shadow */
+        0 3px 2px rgba(0, 0, 0, 0.1), /* Softer outer shadow */
+        0 5px 10px rgba(0, 0, 0, 0.05), /* Softer outer shadow */
+        0 10px 20px rgba(0, 0, 0, 0.05); /* Softer outer shadow */
+    background: #f0f0f0; /* Lighter background color */
+    color: #333333; /* Darker text color for better contrast */
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); /* Lighter text shadow */
+}
+
+
+.secret-view p {
+    font-family:'Courier New', Courier, monospace;
+    text-align: center;
+    word-wrap: break-word;
+    width: 500px;
+    height: 200px;
+    font-size: 1.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    
+}
+  

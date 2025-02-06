@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { updateSecret } from "../../activity-actions";
 
+
 interface SecretMessage {
     userSecret: string;
 }
@@ -17,11 +18,13 @@ export function EditMessage({userSecret}:SecretMessage) {
     return (
         <form action={updateSecret}>
                 <textarea 
+                    className="container-msg"
                     name="secret-text-input" 
                     onChange={handleChangeText}
                     value={secretMessage}
                 />
-                <button type="submit" className="a2-button">Save</button>
+                <button className="button-main">Save</button>
+                {/* <button type="submit" className="a2-button">Save</button> */}
         </form>
     )
 }

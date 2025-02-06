@@ -21,14 +21,17 @@ export default function UserCard(
     getStatus();
   },[])
   return (
-      <div className="user-card">
+      <div className="user-card background-static">
+        <figure>
+          <img className="background-static" src="https://picsum.photos/200" alt="placeholder_profile" />
+        </figure>
+        <div className="user-card-actions">
           <p>{email}</p>
-          {/* <p>{relationshipStatus}</p> */}
           {!relationshipStatus || relationshipStatus == "pending"? 
-          <Link href={`${pathName}/${userTarget}--${relationshipStatus}`}><Button className="button-red" targetFunction={null}>View</Button></Link> :
-          <Link href={`${pathName}/${userTarget}--${relationshipStatus}`}><Button className="button-green" targetFunction={null}>View</Button></Link> 
-
+          <Link href={`${pathName}/${userTarget}--${email}--${relationshipStatus}`}><Button className="button-red" targetFunction={null}>View</Button></Link> :
+          <Link href={`${pathName}/${userTarget}--${email}--${relationshipStatus}`}><Button className="button-green" targetFunction={null}>View</Button></Link> 
           }
+        </div>
       </div>
   )
 }

@@ -1,30 +1,16 @@
 import Button from "@/app/components/button"
 import Link from "next/link";
 import "./a3.css";
-;
+import GoToGit from "@/app/components/github-button";
+import { createServer } from "@/utils/supabase/server";
 
 export default async function Activity3() {
-   
+    const supabase = await createServer();
+    const { data, error } = await supabase.auth.getUser();
     return (
-        <>
-            <section className="a3-nav">
-                <Button className="button-main" targetFunction={"logOut"}>
-                    <i className='bx bx-log-out'></i>
-                </Button>
-                <Button className="button-main"  targetFunction={"deleteUser"}>
-                    <i className='bx bxs-user-x' ></i>
-                </Button>
-                <Button className="button-main"  targetFunction={"GotoGithub"}>
-                    <i className='bx bxl-github' ></i>
-                </Button>
-                <Link href="/">
-                    <button className="button-main">
-                        <i className='bx bx-home' ></i>
-                    </button>
-                </Link>
-            </section>
-            
-            <section className="flex items-center justify-center flex-no-wrap flex-col gap-4">
+        <>  
+            <h1><span className="capitalize font-bold">{data.user?.email?.split("@")[0]}</span>'s dashboard</h1>
+            <nav className="flex items-center justify-center flex-no-wrap flex-col gap-4">
                 <Link href="/activity/03/add-friends">
                     <button className="button-main">
                         Add Friends
@@ -45,7 +31,9 @@ export default async function Activity3() {
                         Edit Personal Secret
                     </button>
                 </Link>
-            </section>
+            </nav>
+            
+            <GoToGit targetLocation="https://github.com/Wrex2432/staclara_technical_a/tree/main/src/app/activity/03"/>
         </>
     )
 }

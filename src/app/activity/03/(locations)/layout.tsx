@@ -1,7 +1,9 @@
 "use client"
 import Link from "next/link";
 import "@/app/activity/03/a3.css";
+import "@/app/css/perso.css";
 import { usePathname } from "next/navigation";
+import ReturnTo from "@/app/components/return";
 export default function LocationsLayout({
     children,
   }: {
@@ -13,21 +15,9 @@ export default function LocationsLayout({
     return (
         <>
         { locationPath ?
-            <nav className="nav-03">
-                <Link href="/activity/03/view-secrets">
-                    <button className="button-main">
-                        <i className='bx bxs-arrow-to-left' ></i>
-                    </button>
-                </Link>
-            </nav> 
+            <ReturnTo hrefTarget="/activity/03/view-secrets"/>
             :
-            <nav className="nav-03">
-                <Link href="/activity/03/">
-                    <button className="button-main">
-                        <i className='bx bxs-arrow-to-left' ></i>
-                    </button>
-                </Link>
-            </nav> 
+            <ReturnTo hrefTarget="/activity/03"/>
         }
             {children}
         </>

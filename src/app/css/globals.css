@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: consolas;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -13,6 +20,7 @@
     --foreground: #ededed;
   }
 }
+
 
 /* body {
   color: var(--foreground);
@@ -37,8 +45,9 @@ body {
 
 .box {
   position: relative;
-  height: 550px;
-  width: 600px;
+
+  height: 80vh;
+  width: clamp(850px, 62vw, 1190px);
   background-color: rgba(236, 236, 236, 0.1);
   border-radius: 15px;
   backdrop-filter: blur(5px);
@@ -46,18 +55,14 @@ body {
 
   box-shadow: 0 0.0625em 0.5em #919191;
   color: #fff;
-/* 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-flow: column; */
+
 }
 
 /* BUTTON */
 i{
   font-size: 2.5rem;
 }
-.button-main, .button-red, .button-green {
+.button-main, .button-red, .button-green, .button-popup {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -81,7 +86,7 @@ i{
 
 }
 
-.button-main {
+.button-main{
   background-color: rgba(255, 255, 255, 0.9);
   color: #000;
   text-shadow: 0 0.0625em 0 #fff;
