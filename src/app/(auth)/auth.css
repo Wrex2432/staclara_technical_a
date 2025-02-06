@@ -19,7 +19,7 @@
     align-items: center;
 } */
 
-.box {
+.box-login {
     height: 550px;
     width: 600px;
     background-color: rgba(236, 236, 236, 0.1);
@@ -32,13 +32,13 @@
     justify-content: center;
 }
 
-.box__elements{
+.box-login  .box__elements{
     width: 100%;
     height: 100%;
     padding: 20px 20px;
 }
 
-.box h1 {
+.box-login h1 {
     color: #fff;
     font-size: 3rem;
     padding: 50px 80px;
@@ -46,7 +46,7 @@
     text-align: center;
 }
 
-.box__inputs {
+.box-login  .box__inputs {
     /* background-color: #a974c2; */
     list-style-type: none;
     display: flex;
@@ -55,12 +55,12 @@
     align-items: center;
     gap: 20px;
 }
-.box__inputs li {
+.box-login  .box__inputs li {
     position: relative;
     width: 580px;
     text-align: center;
 }
-.inputs {
+.box-login  .inputs {
     width: 60%;
     height: 50px;
     border-radius: 25px;
@@ -70,17 +70,17 @@
     font-size: 1rem;
     padding: 20px;
 }
-.inputs:focus {
+.box-login  .inputs:focus {
     color: #3d3d3d;
     background-color: #ffffffb4;
     outline: none;
     font-size: 1rem;
 }
-.inputs::placeholder {
+.box-login  .inputs::placeholder {
     color: #fff;
     font-size: 1rem;
 }
-.box__inputs i{
+.box-login  .box__inputs i{
     position: absolute;
     top: 0.4em;
     right: 4.5em;
@@ -88,7 +88,7 @@
     color: #fff;
 }
 
-.box__suggestions {
+.box-login  .box__suggestions {
     /* background-color: aquamarine; */
     list-style-type: none;
     padding: 15px;
@@ -96,25 +96,25 @@
     justify-content: space-evenly;
     align-items: center;
 }
-.box__suggestions li {
+.box-login  .box__suggestions li {
     color: #fff;
     text-align: center;
     font-size: 0.9rem;
 }
-.sugg__forgot a:any-link {
+.box-login  .sugg__forgot a:any-link {
     color: #fff;
     text-decoration: none;
 }
 
 
-.box__login {
+.box-login  .box__login {
     /* background-color: aquamarine; */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.button {
+.box-login  .button {
     display: inline-block;
     outline: 0;
     cursor: pointer;
@@ -134,17 +134,17 @@
     background 0.2s ease,
     color 0.2s ease,box-shadow 0.2s ease;
 }
-.button:hover{
+.box-login  .button:hover{
     background: rgba(255,255,255,0.9);
     box-shadow: 0 6px 20px rgb(93 93 93 / 23%);
 }
 
-.box__register{
+.box-login  .box__register{
     display: flex;
     justify-content: center;
     color: #fff;
 }
-.box__register a:any-link{
+.box-login  .box__register a:any-link{
     text-decoration: none;
     color: #fff;
     font-weight: bolder;

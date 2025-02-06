@@ -24,6 +24,7 @@ export function EditMessage({userSecret}:SecretMessage) {
                     value={secretMessage}
                 />
                 <button className="button-main">Save</button>
+                {/* <button type="submit" className="a2-button">Save</button> */}
         </form>
     )
 }

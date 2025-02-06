@@ -1,12 +1,10 @@
 import Link from "next/link";
 import { login } from "../auth-actions";
 import "../auth.css";
-import "@/app/css/globals.css"
-import "@/app/css/perso.css"
 
 export default function Login() {
     return (
-    <main className="box">
+    <main className="box-login">
         <form className="box__elements">
             <h1> Login </h1>
 
@@ -27,7 +25,7 @@ export default function Login() {
             </div>
 
             <p className="box__register">
-                Don't have an account? <Link href="/register">Register</Link>
+                Don't have an account? <Link href="/register">&nbsp;Register</Link>
             </p>
             
         </form>

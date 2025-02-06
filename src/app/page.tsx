@@ -1,7 +1,7 @@
 import { createServer } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import Button from "./components/button";
-import { logOut } from "./(auth)/auth-actions";
+import { deleteUser, logOut } from "./(auth)/auth-actions";
 import "./css/perso.css";
 import "./css/globals.css";
 
@@ -25,9 +25,9 @@ export default async function Home() {
             <i className='bx bx-log-out'></i>
           </Button>
           <Link href={"/confirm/delete"}>
-            <button className="button-main">
+            <Button className="button-main" targetFunction={null}>
               <i className='bx bxs-user-x' ></i>
-            </button>
+            </Button>
           </Link>
         </div>
       </section>
@@ -69,9 +69,9 @@ export default async function Home() {
       <footer>
         <nav className="activity-nav-bottom">
           <Link href={"https://github.com/Wrex2432/staclara_technical_a/tree/main/src/app"} target="_blank">
-            <button className="button-main">
+            <Button className="button-main" targetFunction={null}>
               <i className='bx bxl-github' ></i>
-            </button>
+            </Button>
           </Link>
         </nav>
       </footer>

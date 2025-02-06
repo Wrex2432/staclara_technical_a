@@ -3,6 +3,7 @@ import "./activity.css"
 import Button from "../components/button";
 import Link from "next/link";
 import { logOut } from "../(auth)/auth-actions";
+import GoToGit from "../components/github-button";
 import { usePathname } from "next/navigation";
 export default function RootLayout({
     children,
@@ -26,9 +27,9 @@ export default function RootLayout({
                       <i className='bx bx-log-out'></i>
                   </Button>
                   <Link href={"/confirm/delete"}>
-                    <button className="button-main">
+                    <Button className="button-main" targetFunction={null}>
                       <i className='bx bxs-user-x' ></i>
-                    </button>
+                    </Button>
                   </Link>
               </nav>
             </header>
