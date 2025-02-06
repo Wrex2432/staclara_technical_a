@@ -3,8 +3,6 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/utils/supabase/client";
 import { createServer } from "@/utils/supabase/server";
 
-
-
 export async function getUserMsg(){
     const supabase = await createClient();
     const supabaseSR = await createServer();

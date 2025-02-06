@@ -1,5 +1,4 @@
 "use client"
-import Link from "next/link";
 import "@/app/activity/03/a3.css";
 import "@/app/css/perso.css";
 import { usePathname } from "next/navigation";

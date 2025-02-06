@@ -1,77 +1,105 @@
-'use server'
-import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
-import { createServer, createServerAdmin } from '@/utils/supabase/server'
-import { createClient } from '@/utils/supabase/client'
+'use server';
 
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+import { createServer, createServerAdmin } from '@/utils/supabase/server';
+import { createClient } from '@/utils/supabase/client';
 
-export async function login(formData: FormData) {
+interface FormData {
+  get: (key: string) => string | null;
+}
+
+interface User {
+  id: string;
+  email: string;
+}
+
+async function setUserMsg(supabase: ReturnType<typeof createClient>, user: User | any) {
+  if (!user) return;
+
+  const { data, error } = await supabase.from('st_profile').select("secret_msg").eq("user_id", user.id);
+  if (error) {
+    console.error('Error fetching user message:', error);
+    return;
+  }
+
+  if (!data?.length) {
+    const { error: insertError } = await supabase.from('st_profile').insert({ user_id: user.id, user_email: user.email });
+    if (insertError) {
+      console.error('Error inserting user profile:', insertError);
+    }
+  }
+}
+
+export async function login(formData: FormData|any) {
   const supabase = await createClient();
   const supabaseSR = await createServer();
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
-  const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
+  const email = formData.get('email');
+  const password = formData.get('password');
+
+  if (!email || !password) {
+    console.error('Email or password is missing');
+    redirect('/error');
+    return;
   }
 
-  const { error } = await supabaseSR.auth.signInWithPassword(data)
-
-  const { data: { user } } = await supabaseSR.auth.getUser()
-  const setUserMsg = async () => {
-      const { data, error } = await supabase.from('st_profile').select("secret_msg").eq("user_id", user?.id);
-      if (!data?.length) {
-          const { data, error } = await supabase.from('st_profile').insert({user_id:user?.id,user_email:user?.email});
-          return;
-      }
-  }
-  await setUserMsg();
-      
-
+  const { error } = await supabaseSR.auth.signInWithPassword({ email, password });
   if (error) {
-    redirect('/error')
+    console.error('Error signing in:', error.message);
+    redirect('/error');
+    return;
   }
 
-  revalidatePath('/', 'layout')
-  redirect('/')
+  const { data: { user } } = await supabaseSR.auth.getUser();
+  await setUserMsg(supabase, user);
+
+  // revalidatePath('/', 'layout');
+  redirect('/');
 }
 
 export async function register(formData: FormData) {
-  const supabase = await createServer()
+  const supabase = await createServer();
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
-  const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
+  const email = formData.get('email');
+  const password = formData.get('password');
+
+  if (!email || !password) {
+    console.error('Email or password is missing');
+    redirect('/error');
+    return;
   }
 
-  const { error } = await supabase.auth.signUp(data)
-
+  const { error } = await supabase.auth.signUp({ email, password });
   if (error) {
-    redirect('/error')
+    console.error('Error registering user:', error.message);
+    redirect('/error');
+    return;
   }
 
-  revalidatePath('/login', 'page')
-  redirect('/login')
+  revalidatePath('/login', 'page');
+  redirect('/login');
 }
 
-export const logOut= async () => {
+export const logOut = async () => {
   const supabase = await createServer();
   await supabase.auth.signOut();
   return redirect("/login");
 };
+
 export const deleteUser = async () => {
   const supabase = await createServerAdmin();
   const { data: { user } } = await supabase.auth.getUser();
-  const user_id:any = user?.id;
   
-  const { data, error } = await supabase.auth.admin.deleteUser(
-    user_id
-  )
-  console.log(error)
-  
+  if (!user) {
+    console.error('No user found for deletion');
+    return redirect('/error');
+  }
+
+  const { data, error } = await supabase.auth.admin.deleteUser(user.id);
+  if (error) {
+    console.error('Error deleting user:', error.message);
+  }
+
   return redirect("/login");
 };
-

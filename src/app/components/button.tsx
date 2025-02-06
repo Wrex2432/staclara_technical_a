@@ -1,13 +1,18 @@
+interface ButtonProps {
+    children: React.ReactNode;
+    targetFunction: (event: React.MouseEvent<HTMLButtonElement>) => void | React.FunctionComponent | Promise<void>;
+    className: string;
+}
+
 export default function Button({
-    children, targetFunction, className 
-}: {
-    children: React.ReactNode, 
-    targetFunction: React.FunctionComponent | any ,
-    className : string
-}){
+    children,
+    targetFunction,
+    className,
+    }: ButtonProps) {
     return (
         <button onClick={targetFunction} className={className}>
-            {children}
+        {children}
         </button>
-    )
+    );
 }
+  

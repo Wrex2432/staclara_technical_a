@@ -1,5 +1,3 @@
-
-
 import { getUserMsg } from "@/app/activity/activity-actions";
 import { EditMessage } from "./activity-component/edit";
 import GoToGit from "@/app/components/github-button";
@@ -8,6 +6,9 @@ import { createServer } from "@/utils/supabase/server";
 export default async function Activity2() {
     const supabase = await createServer();
     const { data, error } = await supabase.auth.getUser();
+    if (error) {
+        console.log(error);
+    }
     const userSecret= await getUserMsg();
     return (
         <>
