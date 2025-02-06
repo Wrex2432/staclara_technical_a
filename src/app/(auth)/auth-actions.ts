@@ -1,77 +1,101 @@
-'use server'
-import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
-import { createServer, createServerAdmin } from '@/utils/supabase/server'
-import { createClient } from '@/utils/supabase/client'
+"use server";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { createServer, createServerAdmin } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/client";
 
+// Define types for user data
+interface AuthData {
+  email: string;
+  password: string;
+}
 
-export async function login(formData: FormData) {
+export async function login(formData: FormData): Promise<void> {
   const supabase = await createClient();
   const supabaseSR = await createServer();
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
-  const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
+  // Validate formData before type assertion
+  const email = formData.get("email");
+  const password = formData.get("password");
+
+  if (typeof email !== "string" || typeof password !== "string") {
+    redirect("/error");
+    return;
   }
 
-  const { error } = await supabaseSR.auth.signInWithPassword(data)
-
-  const { data: { user } } = await supabaseSR.auth.getUser()
-  const setUserMsg = async () => {
-      const { data, error } = await supabase.from('st_profile').select("secret_msg").eq("user_id", user?.id);
-      if (!data?.length) {
-          const { data, error } = await supabase.from('st_profile').insert({user_id:user?.id,user_email:user?.email});
-          return;
-      }
-  }
-  await setUserMsg();
-      
+  const data: AuthData = { email, password };
+  const { error } = await supabaseSR.auth.signInWithPassword(data);
 
   if (error) {
-    redirect('/error')
+    redirect("/error");
+    return;
   }
 
-  revalidatePath('/', 'layout')
-  redirect('/')
+  const { data: userResponse } = await supabaseSR.auth.getUser();
+  const user = userResponse?.user;
+
+  if (user) {
+    const { data: profileData, error: profileError } = await supabase
+      .from("st_profile")
+      .select("secret_msg")
+      .eq("user_id", user.id);
+
+    if (!profileData?.length && !profileError) {
+      await supabase.from("st_profile").insert({
+        user_id: user.id,
+        user_email: user.email,
+      });
+    }
+  }
+
+  revalidatePath("/", "layout");
+  redirect("/");
 }
 
-export async function register(formData: FormData) {
-  const supabase = await createServer()
+export async function register(formData: FormData): Promise<void> {
+  const supabase = await createServer();
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
-  const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
+  // Validate formData before type assertion
+  const email = formData.get("email");
+  const password = formData.get("password");
+
+  if (typeof email !== "string" || typeof password !== "string") {
+    redirect("/error");
+    return;
   }
 
-  const { error } = await supabase.auth.signUp(data)
+  const data: AuthData = { email, password };
+  const { error } = await supabase.auth.signUp(data);
 
   if (error) {
-    redirect('/error')
+    redirect("/error");
+    return;
   }
 
-  revalidatePath('/login', 'page')
-  redirect('/login')
+  revalidatePath("/login", "page");
+  redirect("/login");
 }
 
-export const logOut= async () => {
+export async function logOut(): Promise<void> {
   const supabase = await createServer();
   await supabase.auth.signOut();
-  return redirect("/login");
-};
-export const deleteUser = async () => {
-  const supabase = await createServerAdmin();
-  const { data: { user } } = await supabase.auth.getUser();
-  const user_id:any = user?.id;
-  
-  const { data, error } = await supabase.auth.admin.deleteUser(
-    user_id
-  )
-  console.log(error)
-  
-  return redirect("/login");
-};
+  redirect("/login");
+}
 
+export async function deleteUser(): Promise<void> {
+  const supabase = await createServerAdmin();
+  const { data: userResponse } = await supabase.auth.getUser();
+  const user = userResponse?.user;
+
+  if (!user) {
+    redirect("/error");
+    return;
+  }
+
+  const { error } = await supabase.auth.admin.deleteUser(user.id);
+  if (error) {
+    console.error("Error deleting user:", error);
+  }
+
+  redirect("/login");
+}
