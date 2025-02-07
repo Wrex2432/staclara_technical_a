@@ -28,6 +28,7 @@ export default function Login() {
             await login(formData);
         } catch (error) {
             setErrorMessage('Invalid credentials. Please try again.'); // Show error message if login fails
+            console.log(error);
         } 
         setLoading(false); // This won't run if `login` redirects the user
 
