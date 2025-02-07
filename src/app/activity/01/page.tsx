@@ -7,7 +7,10 @@ import GoToGit from "@/app/components/github-button";
 export default async function Activity1() {
     const supabase = await createServer();
     const { data, error } = await supabase.auth.getUser();
-    const userSecret:any = await getUserMsg();
+    const userSecret = await getUserMsg() ?? "";
+    if (error) {
+        console.log(error);
+    }
 
     return (
         <>

@@ -1,13 +1,18 @@
 export default function Button({
-    children, targetFunction, className 
+    children, 
+    targetFunction, 
+    className 
 }: {
     children: React.ReactNode, 
-    targetFunction: React.FunctionComponent | any ,
-    className : string
-}){
+    targetFunction?: (() => Promise<void>) | (() => void), // ✅ Make it optional
+    className: string
+}) {
     return (
-        <button onClick={targetFunction} className={className}>
+        <button 
+            onClick={() => targetFunction && targetFunction()} // ✅ Call only if function exists
+            className={className}
+        >
             {children}
         </button>
-    )
+    );
 }

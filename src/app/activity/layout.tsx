@@ -26,7 +26,7 @@ export default function RootLayout({
                       <i className='bx bx-log-out'></i>
                   </Button>
                   <Link href={"/confirm/delete"}>
-                    <Button className="button-main" targetFunction={null}>
+                    <Button className="button-main">
                       <i className='bx bxs-user-x' ></i>
                     </Button>
                   </Link>

@@ -25,7 +25,7 @@ export default async function Home() {
             <i className="bx bx-log-out"></i>
           </Button>
           <Link href={"/confirm/delete"}>
-            <Button className="button-main" targetFunction={null}>
+            <Button className="button-main">
               <i className="bx bxs-user-x"></i>
             </Button>
           </Link>
@@ -74,7 +74,7 @@ export default async function Home() {
             href={"https://github.com/Wrex2432/staclara_technical_a/tree/main/src/app"}
             target="_blank"
           >
-            <Button className="button-main" targetFunction={null}>
+            <Button className="button-main">
               <i className="bx bxl-github"></i>
             </Button>
           </Link>
