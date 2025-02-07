@@ -1,10 +1,10 @@
 import Link from "next/link";
-import "../auth.css";
 import { register } from "../auth-actions";
+import "../auth.css";
 
 export default function Register() {
     return (
-        <main className="box">
+        <main className="box-login">
             <form className="box__elements">
                 <h1>Register</h1>
 
