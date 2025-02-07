@@ -1,6 +1,5 @@
 import { deleteUser } from "@/app/(auth)/auth-actions";
 import Button from "@/app/components/button";
-import Link from "next/link";
 import '@/app/css/perso.css';
 import ReturnTo from "@/app/components/return";
 

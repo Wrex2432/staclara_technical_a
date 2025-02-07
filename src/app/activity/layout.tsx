@@ -3,7 +3,6 @@ import "./activity.css"
 import Button from "../components/button";
 import Link from "next/link";
 import { logOut } from "../(auth)/auth-actions";
-import GoToGit from "../components/github-button";
 import { usePathname } from "next/navigation";
 export default function RootLayout({
     children,

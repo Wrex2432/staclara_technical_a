@@ -1,7 +1,7 @@
 import { createServer } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import Button from "./components/button";
-import { deleteUser, logOut } from "./(auth)/auth-actions";
+import { logOut } from "./(auth)/auth-actions";
 import "./css/perso.css";
 import "./css/globals.css";
 import Link from "next/link";
