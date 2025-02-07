@@ -3,23 +3,20 @@ import { checkRequestStatus, sendFriendRequest } from "@/app/activity/activity-a
 import Button from "@/app/components/button";
 import { useEffect, useState } from "react";
 
-
-export default function UserCard({name, userTarget_id}: {name:string, userTarget_id:string}) {
+export default function UserCard({ name, userTarget_id }: { name: string; userTarget_id: string }) {
     const [status, setStatus] = useState('');
 
-    useEffect(()=> {
+    useEffect(() => {
         const getStatus = async () => {
             const thing = await checkRequestStatus(userTarget_id);
             setStatus(thing);
-        }
+        };
         getStatus();
-        
-    },[])
+    }, [userTarget_id]); // ✅ Add dependency to avoid warnings
 
-    const handleSubmit = (e:any) => {
-        e.preventDefault();
+    const handleSubmit = () => {  // ✅ Remove event parameter
         sendFriendRequest(userTarget_id);
-    }
+    };
 
     return (
         <div className="user-card background-static">
@@ -27,24 +24,17 @@ export default function UserCard({name, userTarget_id}: {name:string, userTarget
                 <img className="background-static" src="https://picsum.photos/200" alt="placeholder_profile" />
             </figure>
             <div className="user-card-actions">
-            <p>{name}</p>
-            {
-                status === "pending" ? 
-                    <button className="button-main" disabled>{status}</button> 
-                : 
-                status === "accepted" ?
-                    <button className="button-green" disabled>{status}</button> 
-                : 
-                    <Button className="button-main" targetFunction={handleSubmit}><i className='bx bx-plus' ></i></Button>
-            }
+                <p>{name}</p>
+                {status === "pending" ? (
+                    <button className="button-main" disabled>{status}</button>
+                ) : status === "accepted" ? (
+                    <button className="button-green" disabled>{status}</button>
+                ) : (
+                    <Button className="button-main" targetFunction={handleSubmit}>
+                        <i className="bx bx-plus"></i>
+                    </Button>
+                )}
             </div>
         </div>
-    )
+    );
 }
-
-/* 
-<div>
-                    <button className="button-main" disabled>{status}</button> 
-                    <button className="button-red" disabled>cancel</button> 
-                </div>
-*/

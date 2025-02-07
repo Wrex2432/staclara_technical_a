@@ -5,7 +5,9 @@ export default async function FriendRequests() {
     const supabase = await createServer();
     const { data: { user } } = await supabase.auth.getUser();
     const { data, error } = await supabase.from("st_request").select('*').eq('user_target', user?.id).eq('request_status', 'pending');
-
+    if (error) {
+        console.log(error);
+    }
     return (
         <>
         <h2>Friend requests:</h2>

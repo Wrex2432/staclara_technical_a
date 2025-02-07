@@ -9,8 +9,8 @@ import { useEffect, useState } from "react"
 
 
 export default function UserCard(
-  {email, secretMsg, userTarget}
-: {email:string, secretMsg:string, userTarget:string}) {
+  {email, userTarget}
+: {email:string, userTarget:string}) {
   const [relationshipStatus, setRelationshipStatus] = useState('');
   const pathName = usePathname();
   useEffect(()=> {
@@ -28,8 +28,8 @@ export default function UserCard(
         <div className="user-card-actions">
           <p>{email}</p>
           {!relationshipStatus || relationshipStatus == "pending"? 
-          <Link href={`${pathName}/${userTarget}--${email}--${relationshipStatus}`}><Button className="button-red" targetFunction={null}>View</Button></Link> :
-          <Link href={`${pathName}/${userTarget}--${email}--${relationshipStatus}`}><Button className="button-green" targetFunction={null}>View</Button></Link> 
+          <Link href={`${pathName}/${userTarget}--${email}--${relationshipStatus}`}><Button className="button-red">View</Button></Link> :
+          <Link href={`${pathName}/${userTarget}--${email}--${relationshipStatus}`}><Button className="button-green">View</Button></Link> 
           }
         </div>
       </div>

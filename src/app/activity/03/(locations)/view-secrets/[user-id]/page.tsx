@@ -16,14 +16,14 @@ export default function ViewSecret() {
         const handleGetMsg = async () => {
             // return ;
             const data = await getUserMsgSpecific(userId.split("--")[0])
-            setMessage(data);
+            setMessage(data??"");
         }
         handleGetMsg();
     },[])
     return (
         <>
         <section className="secret-view">
-            <h1>This is <span className="capitalize font-bold">{userName}</span>'s secret message</h1>
+            <h1>This is <span className="capitalize font-bold">{userName}</span>&apos;s secret message</h1>
             <p className="container-msg">{message}</p>
         </section>
         </>
