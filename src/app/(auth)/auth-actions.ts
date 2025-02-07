@@ -19,7 +19,7 @@ export async function login(formData: FormData): Promise<void> {
   const password = formData.get("password");
 
   if (typeof email !== "string" || typeof password !== "string") {
-    redirect("/error");
+    // redirect("/login?error=Invalid%20credentials");
     return;
   }
 
@@ -27,7 +27,7 @@ export async function login(formData: FormData): Promise<void> {
   const { error } = await supabaseSR.auth.signInWithPassword(data);
 
   if (error) {
-    redirect("/error");
+    redirect("/login?error=Invalid%20credentials");
     return;
   }
 

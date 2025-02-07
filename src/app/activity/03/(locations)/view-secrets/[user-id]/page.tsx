@@ -22,8 +22,8 @@ export default function ViewSecret() {
     },[])
     return (
         <>
+        <h1 className="activity-title">This is <span className="capitalize font-bold">{userName}</span>&apos;s secret message</h1>
         <section className="secret-view">
-            <h1>This is <span className="capitalize font-bold">{userName}</span>&apos;s secret message</h1>
             <p className="container-msg">{message}</p>
         </section>
         </>

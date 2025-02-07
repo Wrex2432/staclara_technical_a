@@ -32,7 +32,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <h1 className="capitalize text-5xl font-bold">
+      <h1 className="title-h1 capitalize text-5xl font-bold">
         Hello {data.user.email ? data.user.email.split("@")[0] : "User"}
       </h1>
 
@@ -40,28 +40,28 @@ export default async function Home() {
         <ul>
           <li>
             <Link href="/activity/01">
-              <button className="button-main">
+              <Button className="button-main">
                 <span>1</span>
                 <i className="bx bx-cog"></i>
-              </button>
+              </Button>
             </Link>
             <p className="text-3xl pl-5">Activity 1 - View Secret Message</p>
           </li>
           <li>
             <Link href="/activity/02">
-              <button className="button-main">
+              <Button className="button-main">
                 <span>2</span>
                 <i className="bx bx-cog"></i>
-              </button>
+              </Button>
             </Link>
             <p className="text-3xl pl-5">Activity 2 - Edit Secret Message</p>
           </li>
           <li>
             <Link href="/activity/03">
-              <button className="button-main">
+              <Button className="button-main">
                 <span>3</span>
                 <i className="bx bx-cog"></i>
-              </button>
+              </Button>
             </Link>
             <p className="text-3xl pl-5">Activity 3 - Add, View, Edit Actions</p>
           </li>

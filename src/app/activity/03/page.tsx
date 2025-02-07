@@ -2,7 +2,7 @@ import Link from "next/link";
 import "./a3.css";
 import GoToGit from "@/app/components/github-button";
 import { createServer } from "@/utils/supabase/server";
-
+import Button from "@/app/components/button";
 export default async function Activity3() {
     const supabase = await createServer();
     const { data, error } = await supabase.auth.getUser();
@@ -11,27 +11,27 @@ export default async function Activity3() {
     }
     return (
         <>  
-            <h1><span className="capitalize font-bold">{data.user?.email?.split("@")[0]}</span>&apos;s dashboard</h1>
+            <h1 className="activity-title"><span className="capitalize font-bold">{data.user?.email?.split("@")[0]}</span>&apos;s dashboard</h1>
             <nav className="flex items-center justify-center flex-no-wrap flex-col gap-4">
                 <Link href="/activity/03/add-friends">
-                    <button className="button-main">
+                    <Button className="button-main">
                         Add Friends
-                    </button>
+                    </Button>
                 </Link>
                 <Link href="/activity/03/check-requests">
-                    <button className="button-main">
+                    <Button className="button-main">
                         Check Requests
-                    </button>
+                    </Button>
                 </Link>
                 <Link href="/activity/03/view-secrets">
-                    <button className="button-main">
+                    <Button className="button-main">
                         View Secrets
-                    </button>
+                    </Button>
                 </Link>
                 <Link href="/activity/03/edit-secret">
-                    <button className="button-main">
+                    <Button className="button-main">
                         Edit Personal Secret
-                    </button>
+                    </Button>
                 </Link>
             </nav>
             

@@ -1,11 +1,24 @@
+"use client"
 import Link from "next/link";
 import { register } from "../auth-actions";
 import "../auth.css";
-
+import { useState } from "react";
 export default function Register() {
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setLoading(true);
+
+        const formData = new FormData(e.currentTarget);
+        await register(formData);
+
+        setLoading(false); // This won't run if `register` redirects the user
+    };
+
     return (
         <main className="box-login">
-            <form className="box__elements">
+            <form className="box__elements" onSubmit={handleSubmit}>
                 <h1>Register</h1>
 
                 <ul className="box__inputs">
@@ -26,14 +39,17 @@ export default function Register() {
                             className="inputs"
                             name="password"
                             placeholder="Password"
-                            required
+                            minLength={6}
+                            required={true}
                         />
                     </li>
                 </ul>
 
                 <div className="box__login">
-                    <button formAction={register} className="button" type="submit">
-                        Register
+                    <button className="box-login-button" type="submit" disabled={loading}>
+                        {loading ? 
+                            "Registering..." : 
+                            "Register"}   
                     </button>
                 </div>
 

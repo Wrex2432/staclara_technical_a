@@ -13,7 +13,7 @@ export default async function Activity2() {
     }
     return (
         <>
-            <h1>Editing <span className="capitalize font-bold">{data.user?.email?.split("@")[0]}</span>&apos;s secret message</h1>
+            <h1 className="activity-title">Editing <span className="capitalize font-bold">{data.user?.email?.split("@")[0]}</span>&apos;s secret message</h1>
             <EditMessage userSecret={userSecret}/>
             <GoToGit targetLocation="https://github.com/Wrex2432/staclara_technical_a/tree/main/src/app/activity/02"/>
         </>
