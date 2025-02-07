@@ -1,115 +1,125 @@
-"use server"
+"use server";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/utils/supabase/client";
 import { createServer } from "@/utils/supabase/server";
 
-
-
-export async function getUserMsg(){
-    const supabase = await createClient();
-    const supabaseSR = await createServer();
-    const { data: { user } } = await supabaseSR.auth.getUser();
-    const getMsg = async () => {
-        const { data, error } = await supabase
-            .from('st_profile')
-            .select("secret_msg")
-            .eq("user_id", user?.id);
-        if (data) {
-            return data[0].secret_msg;
-        }else{
-            return error;
-        }
-    }
-    return getMsg();
+// Define user and request data types
+interface User {
+  id: string;
+  email: string | null;
 }
-export async function getUserMsgSpecific(userTarget_id:string){
-    const supabase = await createClient();
-    const getMsg = async () => {
-        const { data, error } = await supabase
-            .from('st_profile')
-            .select("secret_msg")
-            .eq("user_id", userTarget_id);
-        if (data) {
-            return data[0].secret_msg;
-        }else{
-            return error;
-        }
-    }
-    return getMsg();
+
+export async function getUserMsg(): Promise<string | null> {
+  const supabase = await createClient();
+  const supabaseSR = await createServer();
+
+  const { data, error } = await supabaseSR.auth.getUser();
+  if (error || !data?.user) return null;
+
+  const { data: profileData, error: profileError } = await supabase
+    .from("st_profile")
+    .select("secret_msg")
+    .eq("user_id", data.user.id)
+    .single();
+
+  return profileData?.secret_msg ?? null;
+}
+
+export async function getUserMsgSpecific(userTargetId: string): Promise<string | null> {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("st_profile")
+    .select("secret_msg")
+    .eq("user_id", userTargetId)
+    .single();
+
+  return data?.secret_msg ?? null;
 }
 
 export async function updateSecret(formData: FormData): Promise<void> {
-    const supabase = await createClient();
-    const supabaseSR = await createServer();
-    const { data: { user } } = await supabaseSR.auth.getUser();
-    const {error} = await supabase.from('st_profile').update({secret_msg:formData.get("secret-text-input")}).eq('user_id', user?.id);
-    if (error) console.error(error);
+  const supabase = await createClient();
+  const supabaseSR = await createServer();
 
-    console.log(formData.get("secret-text-input"));
+  const { data, error } = await supabaseSR.auth.getUser();
+  if (error || !data?.user) return;
+
+  const secretMsg = formData.get("secret-text-input");
+  if (typeof secretMsg !== "string") return;
+
+  const { error: updateError } = await supabase
+    .from("st_profile")
+    .update({ secret_msg: secretMsg })
+    .eq("user_id", data.user.id);
+
+  if (updateError) console.error("Error updating secret message:", updateError);
 }
 
-export async function sendFriendRequest(userTarget_id:string) {
-    const supabase = await createClient();
-    const supabaseSR = await createServer();
-    const { data: { user } } = await supabaseSR.auth.getUser();
-    const {data, error} = await supabaseSR.from('st_request').select("*").eq("user_origin",user?.id).eq("user_target",userTarget_id);
-    if (data?.length == 0) {
-        const { data, error } = await supabase
-            .from('st_request')
-            .insert({ user_origin:user?.id, user_target:userTarget_id, user_origin_email:user?.email});
-        console.log("no sent")
-        console.log(error)
-        revalidatePath('/activity/03/add-friends');
-    } else {
-        console.log("already sent")
-    }
+export async function sendFriendRequest(userTargetId: string): Promise<void> {
+  const supabaseSR = await createServer();
+  const { data, error } = await supabaseSR.auth.getUser();
+  if (error || !data?.user) return;
+
+  const { data: existingRequest } = await supabaseSR
+    .from("st_request")
+    .select("*")
+    .eq("user_origin", data.user.id)
+    .eq("user_target", userTargetId);
+
+  if (!existingRequest || existingRequest.length === 0) {
+    const { error: insertError } = await supabaseSR.from("st_request").insert({
+      user_origin: data.user.id,
+      user_target: userTargetId,
+      user_origin_email: data.user.email,
+    });
+
+    if (insertError) console.error("Error sending friend request:", insertError);
+  } else {
+    console.log("Friend request already sent.");
+  }
+
+  revalidatePath("/activity/03/add-friends");
 }
 
-export async function checkRequestStatus(userTarget_id:any) {
-    const supabase = await createServer();
-    const { data: { user } } = await supabase.auth.getUser();
-    const {data, error}:any = await supabase.from("st_request").select("*")
-    .or(`user_origin.eq.${userTarget_id}, user_target.eq.${userTarget_id}`)
-    .or(`user_origin.eq.${user?.id}, user_target.eq.${user?.id}`);
-    if (data?.length != 0) {
-        return(data[0].request_status);
-    } else {
-        return "";
-    }
-    
+export async function checkRequestStatus(userTargetId: string): Promise<string> {
+  const supabase = await createServer();
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data?.user) return "";
+
+  const { data: requestData } = await supabase
+    .from("st_request")
+    .select("request_status")
+    .or(`user_origin.eq.${userTargetId}, user_target.eq.${userTargetId}`)
+    .or(`user_origin.eq.${data.user.id}, user_target.eq.${data.user.id}`)
+    .single();
+
+  return requestData?.request_status ?? "";
 }
 
+export async function confirmReq(userTargetId: string): Promise<void> {
+  const supabase = await createServer();
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data?.user) return;
 
+  const { error: updateError } = await supabase
+    .from("st_request")
+    .update({ request_status: "accepted" })
+    .eq("user_target", data.user.id)
+    .eq("user_origin", userTargetId);
 
-export async function confirmReq(userTarget_id:any) {
-    const supabase = await createServer();
-    const supabaseSr = await createServer();
-    const { data: { user } } = await supabaseSr.auth.getUser();
-    const {data, error}:any = await supabase
-        .from("st_request")
-        .update({request_status:"accepted"})
-        .eq('user_target',user?.id)
-        .eq('user_origin',userTarget_id);
-    if (error) {
-        console.log(error)
-    }
-    if (data) {
-        console.log(data)
-    }
+  if (updateError) console.error("Error confirming request:", updateError);
 }
-export async function deleteReq(userTarget_id:any) {
-    const supabase = await createServer();
-    const supabaseSr = await createServer();
-    const { data: { user } } = await supabaseSr.auth.getUser();
-    const {data, error}:any = await supabase
-        .from("st_request")
-        .delete()
-        .eq('user_target',user?.id)
-        .eq('user_origin',userTarget_id);
-    if (error) {
-        console.log(error)
-    }
-    if (data) {
-        console.log(data)
-    }
-}   
+
+export async function deleteReq(userTargetId: string): Promise<void> {
+  const supabase = await createServer();
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data?.user) return;
+
+  const { error: deleteError } = await supabase
+    .from("st_request")
+    .delete()
+    .eq("user_target", data.user.id)
+    .eq("user_origin", userTargetId);
+
+  if (deleteError) console.error("Error deleting request:", deleteError);
+}
