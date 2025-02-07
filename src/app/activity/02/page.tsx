@@ -1,5 +1,3 @@
-import Button from "@/app/components/button"
-import Link from "next/link";
 import "./a2.css";
 import { getUserMsg } from "../activity-actions";
 import { EditMessage } from "./activity-component/edit";
@@ -9,7 +7,7 @@ import { createServer } from "@/utils/supabase/server";
 export default async function Activity2() {
     const supabase = await createServer();
     const { data, error } = await supabase.auth.getUser();
-    const userSecret= await getUserMsg();
+    const userSecret= await getUserMsg() ?? "";
     return (
         <>
             <h1>Editing <span className="capitalize font-bold">{data.user?.email?.split("@")[0]}</span>'s secret message</h1>

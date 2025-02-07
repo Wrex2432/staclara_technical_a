@@ -3,12 +3,6 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/utils/supabase/client";
 import { createServer } from "@/utils/supabase/server";
 
-// Define user and request data types
-interface User {
-  id: string;
-  email: string | null;
-}
-
 export async function getUserMsg(): Promise<string | null> {
   const supabase = await createClient();
   const supabaseSR = await createServer();
@@ -22,6 +16,10 @@ export async function getUserMsg(): Promise<string | null> {
     .eq("user_id", data.user.id)
     .single();
 
+if (profileError) {
+    console.log(profileError);
+}
+
   return profileData?.secret_msg ?? null;
 }
 
@@ -33,6 +31,9 @@ export async function getUserMsgSpecific(userTargetId: string): Promise<string |
     .select("secret_msg")
     .eq("user_id", userTargetId)
     .single();
+if (error) {
+    console.log(error);
+}
 
   return data?.secret_msg ?? null;
 }

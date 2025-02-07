@@ -38,7 +38,7 @@ export default function Login() {
                 </div>
 
                 <p className="box__register">
-                    Don't have an account?
+                    Don&apos;t have an account?
                     <Link href="/register">&nbsp;Register</Link>
                 </p>
             </form>
