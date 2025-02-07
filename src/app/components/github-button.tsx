@@ -8,7 +8,7 @@ export default function GoToGit({targetLocation}:{targetLocation:string}) {
         <footer>
             <nav className="activity-nav-bottom">
               <Link href={targetLocation} target="_blank">
-                <Button className="button-main" targetFunction={null}>
+                <Button className="button-main">
                   <i className='bx bxl-github' ></i>
                 </Button>
               </Link>
